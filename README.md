@@ -29,6 +29,20 @@ AI’s”. The project’s home is the `nd-crane/taitac` repository on GitHub.
 
 ## The Need for AI Curators
 
+[Tangi, Luca, Marco Combetto, BOSCH Jaume Martin, and MÜLLER Paula
+Rodriguez. 2023. “Artificial Intelligence for Interoperability in the
+European Public Sector.” JRC Publications Repository. October 4,
+2023.](https://doi.org/10.2760/633646).
+
+> “Moreover, the semantic interoperability layer is fundamental in most
+> of the cases. In addition, ontologies and taxonomies combined with AI
+> can help in establishing interoperability between different systems.
+> The solutions analysed classify, detect and provide structure, among
+> other actions performed on data. Hence, AI has the capability to
+> standardise, clean, structure and increase the usage of large volumes
+> of data, thus improving overall quality and making it easier to use
+> and share between different systems.”
+
 ![eu-interoperability-AI.png](./images/eu-interoperability-AI.png)
 
 ## Technology Stack
