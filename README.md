@@ -241,6 +241,7 @@ and OpenAI touched on them during developer days [The New Stack and Ops
 for AI](https://youtu.be/XGJNo8TpuVA?si=Yyh6dKTXouEXxvMf). LlamaIndex
 also has a section in it’s documentation on
 [Evaluation](https://gpt-index.readthedocs.io/en/stable/optimizing/evaluation/evaluation.html).
+LLamaIndex can use [deepeval](https://github.com/confident-ai/deepeval).
 
 ### Types of mistakes to build evals for
 
