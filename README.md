@@ -229,3 +229,13 @@ Tables](https://arxiv.org/pdf/2106.07258.pdf) has constructed a test
 data set of 1.5 million tables from GitHub. The data set is available
 from \[GitTables\]( - [GitTables benchmark - column type
 detection](https://zenodo.org/records/5706316)
+
+## Testing and Evaluation
+
+OpenAI uses the [Evals Framework](https://github.com/openai/evals) for
+unit and behavior testing LLMs as a potential model for applying trusted
+AI to the models. A informative blog post is at [Mastering OpenAI’s
+‘evals’: A Deep Dive into Evaluating
+LLMs](https://medium.com/@sergioli/evaluating-chatgpt-using-openai-evals-7ca85c0ad139)
+and OpenAI touched on them during developer days [The New Stack and Ops
+for AI](https://youtu.be/XGJNo8TpuVA?si=Yyh6dKTXouEXxvMf).
