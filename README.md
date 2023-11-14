@@ -238,4 +238,18 @@ AI to the models. A informative blog post is at [Mastering OpenAI’s
 ‘evals’: A Deep Dive into Evaluating
 LLMs](https://medium.com/@sergioli/evaluating-chatgpt-using-openai-evals-7ca85c0ad139)
 and OpenAI touched on them during developer days [The New Stack and Ops
-for AI](https://youtu.be/XGJNo8TpuVA?si=Yyh6dKTXouEXxvMf).
+for AI](https://youtu.be/XGJNo8TpuVA?si=Yyh6dKTXouEXxvMf). LlamaIndex
+also has a section in it’s documentation on
+[Evaluation](https://gpt-index.readthedocs.io/en/stable/optimizing/evaluation/evaluation.html).
+
+### Types of mistakes to build evals for
+
+- Bad outputting format
+- Inaccurate responses/actions
+- “Going off the rails”
+- Bad tone
+- Hallucinations
+
+### Evaulating Evals
+
+- Model-graded evals – use GPT4 as a grader
