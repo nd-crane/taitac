@@ -2,19 +2,58 @@
 name = "taitac"
 version = "0.0.1"
 description = ""
-authors = [
-    {name = "James Sweet", email = "james.sweet@protonmail.com"},
-]
-dependencies = [
-    "pandas>=2.1.3",
-    "openai>=1.2.4",
-]
+authors = [{ name = "James Sweet", email = "jsweet@nd.edu" }]
+dependencies = ["pandas>=2.1.3"]
 requires-python = ">=3.10,<3.12"
 readme = "README.md"
-license = {text = "MIT"}
+license = { text = "MIT" }
 
 [tool.pdm.dev-dependencies]
-test = [
-    "pytest>=7.4.3",
-    "pytest-sugar>=0.9.7",
+dev = [
+    "ruff>=0.1.5",
+    "pre-commit>=3.5.0",
 ]
+test = ["pytest>=7.4.3", "pytest-sugar>=0.9.7"]
+
+[tool.pyright]
+include = ['src', 'tests']
+extraPaths = ['src/']
+reportMissingImports = true
+reportGeneralTypeIssues = "warning"
+reportOptionalMemberAccess = "warning"
+
+[tool.ruff]
+line-length = 120
+src = ["src", "tests"]
+select = [
+    "E",
+    "F",
+    "W",
+    "I",
+    "N",   # Naming
+    "UP",  # Upgrades
+    "COM", # Commas
+    "PT",  # PyTest
+    "Q",   # Quotes
+    "RET", # Funciton Returns
+    "SIM", # Simplification
+    "TID", # Tidy Imports
+    "PTH", # Use PathLib instead of os
+    "PL",  # PyLint
+]
+ignore = ["N815", "PLR2004"]
+unfixable = ["F401", "UP037"]
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = [
+    "E402",
+    "I001", # No need for required imports
+    "I002", # No need for required imports
+]
+"tests/**/*.py" = ["PLR2004"] # Ignore warning about asserts
+
+[tool.ruff.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.ruff.isort]
+required-imports = ["from __future__ import annotations"]
