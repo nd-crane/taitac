@@ -8,7 +8,7 @@ import pytest
 from taitac import mapper
 
 DATA_ROOT = Path("./data")
-TRAIN_ROOT = DATA_ROOT / "train"
+TRAIN_ROOT = DATA_ROOT / "Train"
 
 
 def small_dataset():
