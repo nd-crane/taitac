@@ -127,172 +127,71 @@ Graphs (KG) with cognitive capabilities of Large Language Models (LLM),
 streamlined by efficient data interfaces like SPARQL, JSON-LD, and
 OpenAPI.
 
-## Architecture Overview
+## LLM Architecture Patterns for Agents
 
-### 1. Knowledge Graph (KG) Storage
+We roughly follow the unified framework for LLMs proposed by Wang et
+al. (2021) to build our agents. The framework is shown below:
 
-#### Storage Layer
+![LLM Architecture Patterns](./images/LLM-Architecture-Patterns.png)
 
-- Purpose: Store RDF triples/quads, which form the backbone of our
-  knowledge representation.
-- Technology: A specialized database optimized for RDF storage ensuring
-  speed, scalability, and efficient querying.
+[Wang, Lei, Chen Ma, Xueyang Feng, Zeyu Zhang, Hao Yang, Jingsen Zhang,
+Zhiyuan Chen, et al. 2023. “A Survey on Large Language Model Based
+Autonomous Agents.” arXiv.](http://arxiv.org/abs/2308.11432)
 
-#### SPARQL Endpoint
+## OpenAI Assistants API and Python SDK
 
-- Purpose: Provide an interface for querying the KG.
-- Technology: A standard SPARQL endpoint ensuring compatibility with
-  various tools and services.
+OpenAI has announced a Agents framework called the [Assistants - OpenAI
+API](https://platform.openai.com/docs/assistants/overview) that allows
+users to build agents that can interact with humans. The components of
+the assistants API roughly decomposes to the following Agent
+Architectural Patterns:
 
-### 2. Microservices Layer
+| Unified Framework Component | Assistants API Equivalent | Description                                                                                         |
+|-----------------------------|---------------------------|-----------------------------------------------------------------------------------------------------|
+| Profile Module              | Assistant                 | Defines the AI’s attributes, capabilities, and personality, setting the stage for its interactions. |
+| Memory Module               | Thread                    | Manages the history of interactions, storing and truncating messages to maintain context.           |
+| Planning Module             | Run                       | Processes the current state and plans the next actions, deciding how to utilize messages and tools. |
+| Action Module               | Message & Run Step        | Executes actions, generates responses, and may call tools to produce outputs or perform tasks.      |
 
-#### SPARQL Service
+State transitions in the Assistants API would involve changes in the
+“Thread” as new “Messages” are added, and as the “Assistant” performs
+new “Runs” and “Run Steps,” updating its current knowledge and planned
+actions.
 
-- Purpose: Interface with the KG to fetch relevant data.
-- Features:
-  - Fetch data using SPARQL queries.
-  - Convert query results, primarily to JSON-LD format for
-    interoperability.
+In addition to these framework components, the Assistants API also
+provides a “Tool” component that allows the agent to perform tasks and
+produce outputs through [OpenAI
+Functions](https://platform.openai.com/docs/guides/function-calling) and
+Retrieval Augmented Generation (RAG) models through document upload.
 
-#### OpenAPI Service
+OpenAI has added python SDK examples to it’s cookbook [Assistants API
+Overview (Python
+SDK)](https://cookbook.openai.com/examples/assistants_api_overview_python)
+and LLamaIndex has integrated [examples of using the Assistants
+API](https://github.com/run-llama/llama_index/tree/main/docs/examples/agent)
+including
+[ReAct](https://github.com/run-llama/llama_index/blob/main/docs/examples/agent/react_agent.ipynb)
+Agents.
 
-- Purpose: Expose data and functionalities as RESTful services.
-- Features:
-  - Standard REST API endpoint allowing CRUD operations.
-  - Integration points for third-party services and applications.
+## Planning and Action Modules
 
-#### LLM Cognitive Agent Service
+Simon Willison has a very simple blog post of implementing the [ReAct:
+Synergizing Reasoning and Acting in Language
+Models](https://react-lm.github.io/) in one of his TILs – [A simple
+Python implementation of the ReAct pattern for
+LLMs](https://til.simonwillison.net/llms/python-react-pattern). There
+are some issues in using regular expressions to select the tool the LLM
+want’s to use. If the response can be constrained using a grammar as
+with the OpenAI model, more expressive response options are available.
 
-- Purpose: Provide intelligent, natural language processing
-  capabilities.
-- Features:
-  - Process and understand natural language queries.
-  - Interact with SPARQL and OpenAPI services.
-  - Return comprehensive, human-friendly responses.
-  - Learn and refine its knowledge based on continuous feedback.
+The issue with the ReAct pattern is that it is course grained planning
+and action. A new approach, called [ADaPT: As-Needed Decomposition and
+Planning with Language Models](https://allenai.github.io/adaptllm/)
+allows recursive decomposition of the planning and action steps as
+needed by supporting logical operators within the task planning and
+execution.
 
-### 3. Integration Middleware
-
-#### JSON-LD Processor
-
-- Purpose: Ensure semantic interoperability.
-- Features:
-  - Convert data between JSON-LD and other formats.
-  - Support semantic annotations and context-aware data transformations.
-
-#### Translator
-
-- Purpose: Convert user queries into actionable data requests.
-- Features:
-  - Translate natural language queries into SPARQL or OpenAPI requests.
-  - Employ contextual understanding to optimize data retrieval
-    strategies.
-
-### 4. User Interface (UI)
-
-#### Web UI
-
-- Purpose: Offer users an interactive platform to engage with the
-  system.
-- Features:
-  - Send natural language queries.
-  - Visualize KG data.
-  - Receive and review responses from the LLM.
-
-#### REST API Client
-
-- Purpose: Programmable interface for developer interactions.
-- Features:
-  - Access to all underlying services for third-party integrations.
-  - Build atop the platform for custom applications and utilities.
-
-### 5. Feedback Mechanism
-
-- Purpose: Continuously refine the LLM’s knowledge and accuracy.
-- Features:
-  - Users can provide feedback on LLM responses.
-  - The feedback loop informs the learning process of the LLM Cognitive
-    Agent Service.
-
-### 6. Security and Authentication
-
-- Purpose: Ensure safe and authorized access to data and services.
-- Features:
-  - Secure the OpenAPI and SPARQL endpoints.
-  - Implement strategies like rate limiting, API keys, or OAuth
-    mechanisms.
-
-### 7. Scalability and Load Balancing
-
-- Purpose: Handle large volumes of data and high concurrency gracefully.
-- Features:
-  - Distribute incoming traffic with load balancers.
-  - Scale storage solutions based on data growth and query demands.
-
-### 8. Logging and Monitoring
-
-- Purpose: Maintain system health, track interactions, and optimize
-  performance.
-- Features:
-  - Monitor service health and performance metrics.
-  - Log interactions, errors, and anomalies for audit and continuous
-    improvement.
-
-------------------------------------------------------------------------
-
-The proposed architecture ensures that users can fluidly interact with a
-vast repository of knowledge using natural language. By converting
-complex queries into actionable data points and leveraging the cognitive
-prowess of LLMs, the system is designed to deliver accurate, concise,
-and human-readable responses. In essence, it’s a forward-looking
-blueprint that envisions a seamless blend of structured KGs with the
-intuitive cognition of LLMs, underpinned by robust, scalable, and secure
-services.
-
-## Agent Architecture
-
-### Initial Experiment Architecture from AVIS.
-
-[AVIS: Autonomous Visual Information Seeking with Large Language Model
-Agent](https://arxiv.org/abs/2306.08129) is a novel framework for visual
-question answering that requires external knowledge. It consists of
-three components: a planner, a reasoner, and a working memory. The
-planner decides which tool to use next, such as web search, image
-search, or computer vision. The reasoner analyzes the output of the tool
-and extracts relevant information. The working memory stores the
-acquired information and updates it as the process progresses. AVIS uses
-a large language model to power both the planner and the reasoner, and
-leverages user behavior data to guide its decision-making.
-
-The tool use component of AVIS is responsible for selecting the most
-appropriate external tool to obtain information from, based on the
-current state and the question. AVIS supports three types of tools: web
-search, image search, and computer vision. Web search queries a search
-engine with keywords extracted from the question and returns a list of
-web pages. Image search queries an image search engine with the image
-provided by the user and returns a list of similar images. Computer
-vision applies a pre-trained object detection model to the image and
-returns a list of detected objects and their locations.
-
-The state graph component of AVIS is responsible for defining the
-possible states and transitions of the information seeking process. A
-state is a representation of the current knowledge acquired by AVIS,
-such as the question, the image, the tool outputs, and the working
-memory. A transition is a change of state triggered by an action, such
-as invoking a tool or updating the working memory. The state graph is
-constructed by analyzing the user behavior data collected in a user
-study, where human participants were asked to answer visual questions
-that require external knowledge using various tools. The state graph
-serves as a constraint for the planner to choose valid actions at each
-state.
-
-A summary of the Architecture is available from the Google Research Blog
-[Autonomous visual information seeking with large language
-models](https://blog.research.google/2023/08/autonomous-visual-information-seeking.html).
-
-![AVIS Architecture](images/AVIS_arch.png)
-
-## Starting Use Case for AI Curator – CSV Column Type Annotation
+## Prompts for Column Type Extraction
 
 [Column Type Annotation using ChatGPT](https://arxiv.org/abs/2306.00745)
 is a novel approach to annotate the semantic types of table columns
@@ -323,36 +222,10 @@ performance in zero-shot and few-shot settings.
   state-of-the-art CTA methods based on pre-trained language models
   (PLMs) such as RoBERTa and DODUO.
 
-## CSV Datasets for AI Curator
+## DataSets for testing data curation
 
-[SOTAB V2 - Table Annotation
-Benchmark](http://webdatacommons.org/structureddata/sotab/v2/) Code for
-constructing the benchmark:
-(https://github.com/wbsg-uni-mannheim/wdc-sotab): [GitTables: a
-large-scale corpus of relational tables
-download.](https://gittables.github.io/) [GitTables: A Large-Scale
-Corpus of Relational Tables](https://arxiv.org/pdf/2106.07258.pdf) –
-[GitHub](https://github.com/madelonhulsebos/gittables) [GitTables
-Download](https://zenodo.org/records/4943312)
-
-- **SOTAB V2**: A benchmark for **table annotation** using
-  **Schema.org** and **DBpedia** terms. It covers two tasks: **Column
-  Type Annotation (CTA)** and **Columns Property Annotation
-  (CPA)**¹\[1\]. It consists of **45,834 tables** annotated for CTA and
-  **30,220 tables** annotated for CPA from **55,511 websites**²\[2\].
-- **Table annotation tasks**: The goal of CTA is to assign a type to
-  each table column, such as telephone, Duration, or Organization³\[3\].
-  The goal of CPA is to assign a property to each pair of columns, such
-  as gtin, startDate, or recipeIngredient⁴\[4\].
-- **Table annotation challenges**: The benchmark includes subsets of
-  test tables that measure the performance of table annotation systems
-  on specific challenges, such as missing values, value format
-  heterogeneity, and corner cases.
-- **Baseline methods**: Three methods are used to evaluate the
-  benchmark: a non-deep learning method based on TF-IDF and Random
-  Forest, a deep learning method called TURL that uses Transformer and
-  TinyBERT, and a deep learning method called DODUO that uses BERT and
-  table serialization.
-- **Download and code**: The benchmark datasets and the code for
-  building the benchmark are available for public download on
-  github⁵\[5\]. The datasets are provided in JSON and CSV formats.
+The [GitTables: A Large-Scale Corpus of Relational
+Tables](https://arxiv.org/pdf/2106.07258.pdf) has constructed a test
+data set of 1.5 million tables from GitHub. The data set is available
+from \[GitTables\]( - [GitTables benchmark - column type
+detection](https://zenodo.org/records/5706316)
