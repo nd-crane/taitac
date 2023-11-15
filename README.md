@@ -242,6 +242,8 @@ for AI](https://youtu.be/XGJNo8TpuVA?si=Yyh6dKTXouEXxvMf). LlamaIndex
 also has a section in it’s documentation on
 [Evaluation](https://gpt-index.readthedocs.io/en/stable/optimizing/evaluation/evaluation.html).
 LLamaIndex can use [deepeval](https://github.com/confident-ai/deepeval).
+RAG pipelines can also be evaluated with
+[Ragas](https://blog.langchain.dev/evaluating-rag-pipelines-with-ragas-langsmith/).
 
 ### Types of mistakes to build evals for
 

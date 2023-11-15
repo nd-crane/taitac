@@ -1,0 +1,11 @@
+actionTakenCode,activeMaintenanceTime,actualSolution,additionalNarrative,adjustedCompletionDate,altClosing,altOpening,apl,assignedBlock35Remarks,autoCloseFg,autoCloseOutIndicator,availabilityCategory,availabilityNumber,block102KForm,block112KForm,block122KForm,causeCode,cdmRin,ckTypeIndicator,closingRemarks,csmpNarrativeSummary,dateClosing,dateMaintenanceAction
+M,2,Repaired a loose wire,N/A,2020-09-01,N,N,APL-1,N/A,N,N,A,AV-1,N,Y,Y,C,CDM-1,CK-1,N/A,N/A,2020-08-31,2020-08-30
+O,4,Replaced broken part,N/A,2020-09-02,N,N,APL-2,N/A,Y,A,A,AV-2,N,N,Y,F,CDM-2,CK-2,N/A,N/A,2020-09-01,2020-08-31
+M,3,Cleaned the machine,N/A,2020-09-03,N,N,APL-3,N/A,N,N,A,AV-3,N,Y,Y,E,CDM-3,CK-3,N/A,N/A,2020-09-02,2020-09-01
+O,2,Replaced a damaged part,N/A,2020-09-04,N,N,APL-4,N/A,Y,A,A,AV-4,N,N,Y,D,CDM-4,CK-4,N/A,N/A,2020-09-03,2020-09-02
+M,5,Adjusted the settings,N/A,2020-09-05,N,N,APL-5,N/A,N,N,A,AV-5,N,Y,Y,A,CDM-5,CK-5,N/A,N/A,2020-09-04,2020-09-03
+O,3,Checked all connections,N/A,2020-09-06,N,N,APL-6,N/A,Y,A,A,AV-6,N,N,Y,G,CDM-6,CK-6,N/A,N/A,2020-09-05,2020-09-04
+M,4,Replaced a component,N/A,2020-09-07,N,N,APL-7,N/A,N,N,A,AV-7,N,Y,Y,B,CDM-7,CK-7,N/A,N/A,2020-09-06,2020-09-05
+O,3,Checked all systems,N/A,2020-09-08,N,N,APL-8,N/A,Y,A,A,AV-8,N,N,Y,H,CDM-8,CK-8,N/A,N/A,2020-09-07,2020-09-06
+M,5,Replaced a broken part,N/A,2020-09-09,N,N,APL-9,N/A,N,N,A,AV-9,N,Y,Y,D,CDM-9,CK-9,N/A,N/A,2020-09-08,2020-09-07
+O,3,Replaced a worn out part,N/A,2020-09-10,N,N,APL-10,N/A,Y,A,A,AV-10,N,N,Y,I,CDM-10,CK-10,N/A,N/A,2020-09-09,2020-09-08
